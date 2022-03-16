@@ -2,19 +2,19 @@
 ;
 ;Die Benutzung der Software ist mit folgenden Bedingungen verbunden:
 ;
-;1. Da ich alles kostenlos zur Verfügung stelle, gebe ich keinerlei Garantie
-;   und übernehme auch keinerlei Haftung für die Folgen der Benutzung.
+;1. Da ich alles kostenlos zur Verfï¿½gung stelle, gebe ich keinerlei Garantie
+;   und ï¿½bernehme auch keinerlei Haftung fï¿½r die Folgen der Benutzung.
 ;
-;2. Die Software ist ausschließlich zur privaten Nutzung bestimmt. Ich
-;   habe nicht geprüft, ob bei gewerblicher Nutzung irgendwelche Patentrechte
-;   verletzt werden oder sonstige rechtliche Einschränkungen vorliegen.
+;2. Die Software ist ausschlieï¿½lich zur privaten Nutzung bestimmt. Ich
+;   habe nicht geprï¿½ft, ob bei gewerblicher Nutzung irgendwelche Patentrechte
+;   verletzt werden oder sonstige rechtliche Einschrï¿½nkungen vorliegen.
 ;
-;3. Jeder darf Änderungen vornehmen, z.B. um die Funktion seinen Bedürfnissen
-;   anzupassen oder zu erweitern. Ich würde mich freuen, wenn ich weiterhin als
+;3. Jeder darf ï¿½nderungen vornehmen, z.B. um die Funktion seinen Bedï¿½rfnissen
+;   anzupassen oder zu erweitern. Ich wï¿½rde mich freuen, wenn ich weiterhin als
 ;   Co-Autor in den Unterlagen erscheine und mir ein Link zur entprechenden Seite
 ;   (falls vorhanden) mitgeteilt wird.
 ;
-;4. Auch nach den Änderungen sollen die Software weiterhin frei sein, d.h. kostenlos bleiben.
+;4. Auch nach den ï¿½nderungen sollen die Software weiterhin frei sein, d.h. kostenlos bleiben.
 ;
 ;!! Wer mit den Nutzungbedingungen nicht einverstanden ist, darf die Software nicht nutzen !!
 ;
@@ -154,6 +154,8 @@
 #include "tgy_8mhz.inc"		; TowerPro/Turnigy Basic/Plush "type 2" w/8MHz oscillator (INT0 PWM)
 #elif defined(tgy_esc)
 #include "tgy.inc"		; TowerPro/Turnigy Basic/Plush "type 2" (INT0 PWM)
+#elif defined(mikrokopter_esc)
+#include "mikrokopter.inc"		; Mikrokopter (INT0 PWM)
 #else
 #error "Unrecognized board type."
 #endif
@@ -1537,7 +1539,7 @@ t1oca_int1:	sts	ocr1ax, i_temp1
 		out	SREG, i_sreg
 		reti
 ;-----bko-----------------------------------------------------------------
-; timer1 overflow interrupt (happens every 4096µs)
+; timer1 overflow interrupt (happens every 4096ï¿½s)
 t1ovfl_int:	in	i_sreg, SREG
 		lds	i_temp1, tcnt1x
 		inc	i_temp1
@@ -1765,7 +1767,7 @@ urxc_exit:	out	SREG, i_sreg
 		reti
 	.endif
 ;-----bko-----------------------------------------------------------------
-; beeper: timer0 is set to 1µs/count
+; beeper: timer0 is set to 1ï¿½s/count
 beep_f1:	ldi	temp2, 80
 		ldi	temp4, 200
 		RED_on
@@ -1820,7 +1822,7 @@ beep_f4_on:	CpFET_on
 ; must be muted first
 beep:		out	TCNT0, ZH
 beep1:		in	temp1, TCNT0
-		cpi	temp1, 2*CPU_MHZ	; 32µs on
+		cpi	temp1, 2*CPU_MHZ	; 32ï¿½s on
 		brlo	beep1
 		all_pFETs_off temp3
 		all_nFETs_off temp3
