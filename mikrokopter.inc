@@ -14,15 +14,19 @@
 .equ    DEAD_LOW_NS     = 450	; May work on some boards, but be careful!
 .equ    DEAD_HIGH_NS    = 8000
 
+;.equ    MOTOR_REVERSE   = 1
+;.equ    RC_PULS_REVERSE = 1
+
 ;*********************
 ; PORT D definitions *
 ;*********************
-;.equ	mux_c		= 7	;i <plus> comparator input (AIN0)
-;.equ	c_comp		= 6	;i common comparator input (AIN0)
+.equ	c_comp		= 6	;i common comparator input (AIN0)
 .equ	AnFET		= 3
 .equ	BnFET		= 4
 .equ	CnFET		= 5
 .equ	txd			= 1	;o
+
+.equ	green_led	= 7	; o
 
 .equ	INIT_PD		= 0
 .equ	DIR_PD		= (1<<AnFET)+(1<<BnFET)+(1<<CnFET)
@@ -30,6 +34,13 @@
 .equ	AnFET_port	= PORTD
 .equ	BnFET_port	= PORTD
 .equ	CnFET_port	= PORTD
+
+.MACRO GRN_on
+	sbi	DDRD, green_led
+.ENDMACRO
+.MACRO GRN_off
+	cbi	DDRD, green_led
+.ENDMACRO
 
 ;*********************
 ; PORT C definitions *
@@ -42,12 +53,11 @@
 ;.equ			= 3	; ADC3
 ;.equ			= 2	; ADC2 (plush has something on here)
 ;.equ	mux_temperature	= 1	; ADC1 temperature input
-;.equ	mux_voltage	= 0	; ADC0 voltage input (10k from Vbat, 1k to gnd, 10.10V -> .918V at ADC0)
+.equ	mux_voltage	= 7	; ADC7 voltage input (18k from Vbat, 1k to gnd, 10.10V -> .532V at ADC0)
 
 .equ	red_led		= 3	; o
-.equ	green_led	= 6	; o
 
-;.equ	O_POWER		= 10
+;.equ	O_POWER		= 18
 ;.equ	O_GROUND	= 1
 
 .equ	INIT_PC		= 0
@@ -58,12 +68,6 @@
 .ENDMACRO
 .MACRO RED_off
 	cbi	DDRC, red_led
-.ENDMACRO
-.MACRO GRN_on
-	sbi	DDRC, green_led
-.ENDMACRO
-.MACRO GRN_off
-	cbi	DDRC, green_led
 .ENDMACRO
 
 ;*********************
